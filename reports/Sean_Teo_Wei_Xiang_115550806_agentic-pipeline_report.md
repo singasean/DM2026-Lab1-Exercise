@@ -8,4 +8,4 @@ To reduce noise and optimize computational efficiency, I applied the `variance_f
 
 Finally, I projected the filtered matrix into a 2D space for visualization using the `reduce_dimensions_tool`. The resulting scatter plot demonstrates the clustering tendencies of the documents based on their original categories.
 
-![Dimension Reduction Plot](../plots/Sean_Teo_Wei_Xiang_agentic-pipeline_plot_reduction.png)
+![Dimension Reduction Plot](../plots/Sean_Teo_Wei_Xiang_agentic-pipeline_plot_reduce_dimensions_6)
