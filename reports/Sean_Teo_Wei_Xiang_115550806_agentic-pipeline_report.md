@@ -1,11 +1,11 @@
 # Your report
 
-First, I loaded the 20-Newsgroups text using `load_dataset_tool`. The dataset consisted of documents distributed across four distinct categories: `alt.atheism`, `soc.religion.christian`, `comp.graphics`, and `sci.med`.
+I loaded 2,257 documents from four 20 Newsgroups categories using `load_dataset_1`: comp.graphics (584), soc.religion.christian (599), sci.med (594), and alt.atheism (480). I then built a Document-Term Matrix using `build_dtm_2`, containing 35,788 terms across 2,257 documents. Its 99.547% sparsity shows that most words occur in only a small number of documents.
 
-Following the data discovery, I granted the agent access to the custom student tool workspace. I constructed the initial high-dimensional feature space by calling `build_dtm_tool` on the text column, which generated a Document-Term Matrix representing term frequencies across the loaded dataset.
+Using `variance_filter_3` with a threshold of 0.01, I reduced the vocabulary from 35,788 to 5,354 terms, removing 30,434 low-variance terms. These were mainly rare names, typos, and document-specific tokens, so removing them reduces noise and makes later analysis more efficient. The Pearson filter (`pearson_filter_4`) selected 25 terms correlated with sci.med, including `medicine`, `treatment`, `diet`, and `sensitivity`. However, it evaluated all 35,788 DTM terms instead of only the variance-filtered terms, so the two filters did not combine as expected.
 
-To reduce noise and optimize computational efficiency, I applied the `variance_filter_tool` with a threshold of 0.01. This successfully removed near-constant and low-variance terms that hold little discriminative value for text classification.
+![Pearson-filter terms for sci.med](../plots/Sean_Teo_Wei_Xiang_agentic-pipeline_plot_turn42.png)
 
-Finally, I projected the filtered matrix into a 2D space for visualization using the `reduce_dimensions_tool`. The resulting scatter plot demonstrates the clustering tendencies of the documents based on their original categories.
+The PCA result (`reduce_dimensions_5`) reduced the DTM to two dimensions. PC1 explained 65.94% of the variance and PC2 explained 4.33%, meaning the first component dominates the projection. The plot shows substantial category overlap around the centre, with several strong outliers, so the four categories are not cleanly separated in two-dimensional PCA space. Cosine similarity between documents 0 and 1 was 0.353241, indicating moderate similarity between the two comp.graphics documents.
 
-![Dimension Reduction Plot](../plots/Sean_Teo_Wei_Xiang_agentic-pipeline_plot_reduce_dimensions_6.png)
+![Two-dimensional PCA projection](../plots/Sean_Teo_Wei_Xiang_agentic-pipeline_plot_reduce_dimensions_5.png)
